@@ -15,3 +15,8 @@ form {
 .anadrasi form{
 	max-width: none;
 }
+
+.scrollit {
+    overflow:scroll;
+    height:100px;
+}
