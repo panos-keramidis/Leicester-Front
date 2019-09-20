@@ -42,7 +42,9 @@
             <a class="nav-link" href="timeline.html">Timeline</a>
           </li>
         </ul>
-
+        <ul class="nav navbar-nav navbar-rightt">
+          <a class="nav-link" href="#">Login</a>
+        </ul>
       </div>
     </nav>
   </header>
@@ -50,6 +52,21 @@
   <!-- Begin page content -->
   <div class="container">
     <h2 class="mt-5">Select Area</h2>
+    <!-- Small button groups (default and split) -->
+    <div class="text-right">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-info active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> Wheat
+  </label>
+  <label class="btn btn-info">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Rice
+  </label>
+
+</div>
+
+    </div>
+    <br>
+
     <div id="map" style="height:600px;"></div>
     <div class="text-right">
       <br>
@@ -290,7 +307,7 @@
       chart.draw(view, options);
     }
   </script>
- <!--
+  <!--
   <script type="text/javascript">
     var data = {
     labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
