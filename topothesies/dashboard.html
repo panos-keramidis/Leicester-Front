@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <title>Dashboard</title>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Cassava's Dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="dashboard.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="personal.html">Personal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="timeline.html">Timeline</a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+  </header>
+  <br><br>
+  <!-- Begin page content -->
+  <div class="container">
+    <h2 class="mt-5">Select Area</h2>
+    <div id="map" style="height:600px;"></div>
+    <div class="text-right">
+      <br>
+      <button type="button" class="btn btn-primary" onclick="location.reload();">Generate</button>
+      <br>
+    </div>
+
+    <div class="center-block">
+      <h3>NDVL Chart</h3>
+      <div id="curve_chart" style="height: 500px"></div>
+    </div>
+
+    <div class="center-block">
+      <h3>Biomass to NDVL</h3>
+      <div id="chart_div" style="height: 500px"></div>
+    </div>
+
+    <div class="center-block">
+      <h3>Yield to Biomass chart</h3>
+      <div id="chart_div2" style="height: 500px"></div>
+    </div>
+
+    <!--
+    <div class="center-block">
+      <h3>Yield predictions</h3>
+      <canvas id="LineWithLine" height="400"></canvas>
+    </div>
+  -->
+
+    <div class="center-block">
+      <h3>Table</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br><br><br><br>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <script>
+    var map;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: 40.426785,
+          lng: -88.985765
+        },
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        streetViewControl: false,
+        labels: true,
+        zoom: 7
+      });
+    }
+  </script>
+
+
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Month', 'NDVI/t'],
+        ['JAN', 10],
+        ['FEB', 20],
+        ['MAR', 50],
+        ['APR', 100],
+        ['MAY', 200],
+        ['JUN', 500],
+        ['JUL', 200],
+        ['AUG', 100],
+        ['SEP', 50],
+        ['OCT', 20],
+        ['NOV', 10],
+        ['DEC', 0]
+
+      ]);
+
+      var options = {
+        title: 'NDVI',
+        curveType: 'function',
+        legend: {
+          position: 'bottom'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    google.charts.load('current', {
+      callback: drawChart,
+      packages: ['corechart']
+    });
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y0');
+      data.addRows([
+        [1, 3],
+        [5, 4],
+        [8, 5],
+        [10, 7],
+        [12, 14],
+        [16, 14],
+        [17, 16],
+        [20, 21],
+        [21, 20],
+        [23, 22],
+        [25, 25],
+        [28, 29],
+        [30, 34],
+        [32, 34]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1, {
+        label: 'y1=x',
+        type: 'number',
+        calc: function(dt, row) {
+          return dt.getValue(row, 0)
+        }
+      }]);
+
+      var options = {
+        seriesType: 'scatter',
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
+      };
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(view, options);
+    }
+  </script>
+
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    google.charts.load('current', {
+      callback: drawChart,
+      packages: ['corechart']
+    });
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y0');
+      data.addRows([
+        [1, 3],
+        [10, 4],
+        [12, 5],
+        [15, 7],
+        [18, 7],
+        [20, 14],
+        [22, 13],
+        [23, 16],
+        [25, 14],
+        [30, 16],
+        [31, 17],
+        [35, 15],
+        [39, 26],
+        [40, 21],
+        [41, 20],
+        [45, 20]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1, {
+        label: 'y1=x/2',
+        type: 'number',
+        calc: function(dt, row) {
+          return dt.getValue(row, 0) / 2
+        }
+      }]);
+
+      var options = {
+        seriesType: 'scatter',
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
+      };
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+      chart.draw(view, options);
+    }
+  </script>
+ <!--
+  <script type="text/javascript">
+    var data = {
+    labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+    datasets: [{
+        label: 'ena',
+        strokeColor: 'green',
+        data: [0, 1, 2, 1, 5, 8, 4, 2, 3, 5,null,null]
+
+    },
+     {
+        label: 'dyo',
+        strokeColor: 'blue',
+        data: [0, 1, 4, 1, 4, 4, 7, 8, 9, 10,null,null]
+    },
+    {
+        label: 'tria',
+        strokeColor: '#7CFC00',
+        data: [null,null,null,null,null,null,null,null,null,5,7, 6]
+
+    },
+    {
+        label: 'triadyo',
+        strokeColor: '#32CD32',
+        data: [null,null,null,null,null,null,null,null,null,5,6, 7]
+
+    },
+    {
+        label: 'triatria',
+        strokeColor: '#6B8E23',
+        data: [null,null,null,null,null,null,null,null,null,5,5, 4]
+
+    },
+    {
+        label: 'tessera',
+        strokeColor: '#37FDFC',
+        data: [null,null,null,null,null,null,null,null,null,10,9,8]
+    },
+    {
+        label: 'tesseradyo',
+        strokeColor: '#008B8B',
+        data: [null,null,null,null,null,null,null,null,null,10,10,9]
+    },
+    {
+        label: 'tesseratria',
+        strokeColor: '#05EDFF',
+        data: [null,null,null,null,null,null,null,null,null,10,10,8]
+    }
+    ]
+  };
+
+
+
+  var ctx = document.getElementById("LineWithLine").getContext("2d");
+
+  Chart.types.Line.extend({
+    name: "LineWithLine",
+    draw: function () {
+        Chart.types.Line.prototype.draw.apply(this, arguments);
+
+        var point = this.datasets[0].points[this.options.lineAtIndex]
+        var point = this.datasets[2].points[this.options.lineAtIndex]
+        var point = this.datasets[3].points[this.options.lineAtIndex]
+        var point = this.datasets[4].points[this.options.lineAtIndex]
+        var point1 = this.datasets[1].points[this.options.lineAtIndex1]
+        var point1 = this.datasets[5].points[this.options.lineAtIndex1]
+        var point1 = this.datasets[6].points[this.options.lineAtIndex1]
+        var point1 = this.datasets[7].points[this.options.lineAtIndex1]
+        var scale = this.scale
+
+        // draw line
+        this.chart.ctx.beginPath();
+        this.chart.ctx.moveTo(point.x, scale.startPoint + 24);
+        this.chart.ctx.strokeStyle = '#ff0000';
+        this.chart.ctx.lineTo(point.x, scale.endPoint);
+        this.chart.ctx.stroke();
+
+        // draw line
+        this.chart.ctx.beginPath();
+        this.chart.ctx.moveTo(point1.x, scale.startPoint + 24);
+        this.chart.ctx.strokeStyle = '#ff0000';
+        this.chart.ctx.lineTo(point1.x, scale.endPoint);
+        this.chart.ctx.stroke();
+
+        // write TODAY
+        this.chart.ctx.textAlign = 'center';
+        this.chart.ctx.fillText("TODAY", point.x, scale.startPoint + 12);
+        this.chart.ctx.fillText("EXP", point1.x, scale.startPoint + 12);
+    }
+  });
+
+    new Chart(ctx).LineWithLine(data, {
+      datasetFill : false,
+      lineAtIndex: 9,
+      lineAtIndex1: 11
+    });
+
+  </script>
+-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-30_zObLbQUwN2cHkuu760i8qFJaN92o&callback=initMap" async defer></script>
+</body>
+
+</html>

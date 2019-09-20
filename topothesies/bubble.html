@@ -12,10 +12,12 @@
     <title>Dashboard</title>
 	<script src="js/modules/Chart.js"></script>
 	<script src="js/utils.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
-	
-    
+
+
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
@@ -28,7 +30,7 @@
 		<div class = "center-block" style="width: 700px; height: 500px">
 			<canvas id="bubble-chart" width="300" height="300"></canvas>
 		</div>
-		
+
 	<script>
 		new Chart(document.getElementById("bubble-chart"), {
     type: 'bubble',
@@ -79,13 +81,13 @@
         display: true,
         text: 'Predicted UK harvest ammount in 2050'
       }, scales: {
-        yAxes: [{ 
+        yAxes: [{
           scaleLabel: {
             display: true,
             labelString: "Climate adequacy"
           }
         }],
-        xAxes: [{ 
+        xAxes: [{
           scaleLabel: {
             display: true,
             labelString: "Arable land"
