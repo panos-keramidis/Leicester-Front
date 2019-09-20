@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <title>Dashboard</title>
+	<script src="js/modules/Chart.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
+	
+    
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+  </head>
+
+
+<body>
+
+		<div class = "center-block" style="width: 700px; height: 500px">
+			<canvas id="bubble-chart" width="300" height="300"></canvas>
+		</div>
+		
+	<script>
+		new Chart(document.getElementById("bubble-chart"), {
+    type: 'bubble',
+    data: {
+      labels: "ahha",
+      datasets: [
+        {
+          label: ["Leicester"],
+          backgroundColor: "rgba(255,221,50,0.2)",
+          borderColor: "rgba(255,221,50,1)",
+          data: [{
+            x: 1269017,
+            y: 7.245,
+            r: 80
+          }]
+        }, {
+          label: ["Manchester"],
+          backgroundColor: "rgba(60,186,159,0.2)",
+          borderColor: "rgba(60,186,159,1)",
+          data: [{
+            x: 208702,
+            y: 6.526,
+            r: 60
+          }]
+        }, {
+          label: ["Leeds"],
+          backgroundColor: "rgba(0,0,0,0.2)",
+          borderColor: "#000",
+          data: [{
+            x: 3979083,
+            y: 4.994,
+            r: 25
+          }]
+        }, {
+          label: ["Birmingham"],
+          backgroundColor: "rgba(193,46,12,0.2)",
+          borderColor: "rgba(193,46,12,1)",
+          data: [{
+            x: 4031877,
+            y: 5.921,
+            r: 35
+          }]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted UK harvest ammount in 2050'
+      }, scales: {
+        yAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Climate adequacy"
+          }
+        }],
+        xAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Arable land"
+          }
+        }]
+      }
+    }
+});
+
+
+	</script>
+</body>
+
+</html>
