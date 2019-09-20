@@ -1,0 +1,99 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <title>Dashboard</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
+	
+    
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+  </head>
+
+  <body class="bg-light">
+
+    
+	<div class="container">
+	<div class="row">
+	
+	
+	<div class="col-lg-12">
+		<p>Harvest readiness based on city<p>
+		<canvas id="radarChart"></canvas>
+	</div>
+	
+	
+	</div><!-- /.row -->
+	</div><!-- /.container -->
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/jquery-3.4.0.min.js"></script>
+    <script src="js/modules/jquery.easing.js"></script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="js/mdb.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script src="offcanvas.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+				
+	
+	
+	<script>
+  //radar
+  var ctxR = document.getElementById("radarChart").getContext('2d');
+  var myRadarChart = new Chart(ctxR, {
+    type: 'radar',
+    data: {
+      labels: ["Birmingham", "Leicester", "Nottingham", "Leeds", "Manchester"],
+      datasets: [{
+          label: "Rice",
+          data: [65, 59, 90, 81, 56],
+          backgroundColor: [
+            'rgba(105, 0, 132, .2)',
+          ],
+          borderColor: [
+            'rgba(200, 99, 132, .7)',
+          ],
+          borderWidth: 2
+        },
+        {
+          label: "Wheat",
+          data: [28, 48, 40, 19, 96],
+          backgroundColor: [
+            'rgba(0, 250, 220, .2)',
+          ],
+          borderColor: [
+            'rgba(0, 213, 132, .7)',
+          ],
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+</script>
+	
+  </body>
+</html>
