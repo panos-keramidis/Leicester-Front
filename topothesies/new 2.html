@@ -53,19 +53,31 @@
     <div id="map" style="height:500px;"></div>
     <div class="float-right">
       <br>
-      <button type="button" class="btn btn-primary">Calculate</button>
+      <button type="button" class="btn btn-primary" onclick="location.reload();">Generate</button>
       <br> <br>
     </div>
 
-    <div class="center-block" style="height: 400px">
+    <div class="center-block" style="height: 700px">
       <canvas id="mixed-chart"></canvas>
     </div>
 
     <div class="center-block">
+      <h3>Bell Chart</h3>
       <div id="curve_chart" style="height: 400px"></div>
     </div>
 
     <div class="center-block">
+      <h3>Bell Chart</h3>
+      <div id="chart_div" style="height: 500px"></div>
+    </div>
+
+    <div class="center-block">
+      <h3>Bell Chart 2</h3>
+      <div id="chart_div2" style="height: 500px"></div>
+    </div>
+
+    <div class="center-block">
+      <h3>Table</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -202,6 +214,121 @@
       }
     });
   </script>
+
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    google.charts.load('current', {
+      callback: drawChart,
+      packages: ['corechart']
+    });
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y0');
+      data.addRows([
+        [1, 3],
+        [5, 4],
+        [8, 5],
+        [10, 7],
+        [12, 14],
+        [16, 14],
+        [17, 16],
+        [20, 21],
+        [21, 20],
+        [23, 22],
+        [25, 25],
+        [28, 29],
+        [30, 34],
+        [32, 34]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1, {
+        label: 'y1=x',
+        type: 'number',
+        calc: function(dt, row) {
+          return dt.getValue(row, 0)
+        }
+      }]);
+
+      var options = {
+        seriesType: 'scatter',
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
+      };
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(view, options);
+    }
+  </script>
+
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    google.charts.load('current', {
+      callback: drawChart,
+      packages: ['corechart']
+    });
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y0');
+      data.addRows([
+        [1, 3],
+        [10, 4],
+        [12, 5],
+        [15, 7],
+        [18, 7],
+        [20, 14],
+        [22, 13],
+        [23, 16],
+        [25, 14],
+        [30, 16],
+        [31, 17],
+        [35, 15],
+        [39, 26],
+        [40, 21],
+        [41, 20],
+        [45, 20]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1, {
+        label: 'y1=x/2',
+        type: 'number',
+        calc: function(dt, row) {
+          return dt.getValue(row, 0) / 2
+        }
+      }]);
+
+      var options = {
+        seriesType: 'scatter',
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
+      };
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+      chart.draw(view, options);
+    }
+  </script>
+
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-30_zObLbQUwN2cHkuu760i8qFJaN92o&callback=initMap" async defer></script>
 </body>
 
