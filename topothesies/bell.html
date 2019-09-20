@@ -1,0 +1,42 @@
+  <html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'NDVL/t'],
+          ['JAN',  10],
+          ['FEB',  20],
+          ['MAR',  50],
+          ['APR',  100],
+		  ['MAY', 200],
+		  ['JUN', 500],
+		  ['JUL', 200],
+		  ['AUG', 100],
+		  ['SEP', 50],
+		  ['OCT', 20],
+		  ['NOV', 10],
+		  ['DEC', 0]
+		  
+        ]);
+
+        var options = {
+          title: 'NDVL',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  </body>
+</html>
+
