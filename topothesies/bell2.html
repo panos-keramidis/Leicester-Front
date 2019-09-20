@@ -1,66 +1,69 @@
-  <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-  
-	  
-	  google.charts.load('current', {
-		  callback: drawChart,
-		  packages:['corechart']
-		});
+<html>
 
-		function drawChart() {
-		  var data = new google.visualization.DataTable();
-		  data.addColumn('number', 'x');
-		  data.addColumn('number', 'y0');
-		  data.addRows([
-			[1,  3],
-			[10,  4],
-			[12,  5],
-			[15,  7],
-			[18,  7],
-			[20,  14],
-			[22,  13],
-			[23,  16],
-			[25,   14],
-			[30,   16],
-			[31,   17],
-			[35,   15],
-			[39,   26],
-			[40,  21],
-			[41,  20],
-			[45, 20]
-		  ]);
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-		  var view = new google.visualization.DataView(data);
-		  view.setColumns([0, 1, {
-			label: 'y1=x/2',
-			type: 'number',
-			calc: function (dt, row) {
-			  return dt.getValue(row, 0)/2
-			}
-		  }]);
 
-		  var options = {
-			seriesType: 'scatter',
-			series: {
-			  1: {
-				type: 'line'
-			  }
-			}
-		  };
+    google.charts.load('current', {
+      callback: drawChart,
+      packages: ['corechart']
+    });
 
-		  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-		  chart.draw(view, options);
-		}
-	  
-    </script>
-	
-  </head>
-  <body>
-	<div id="chart_div" style="width: 900px; height: 800px"></div>
-  </body>
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'x');
+      data.addColumn('number', 'y0');
+      data.addRows([
+        [1, 3],
+        [10, 4],
+        [12, 5],
+        [15, 7],
+        [18, 7],
+        [20, 14],
+        [22, 13],
+        [23, 16],
+        [25, 14],
+        [30, 16],
+        [31, 17],
+        [35, 15],
+        [39, 26],
+        [40, 21],
+        [41, 20],
+        [45, 20]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1, {
+        label: 'y1=x/2',
+        type: 'number',
+        calc: function(dt, row) {
+          return dt.getValue(row, 0) / 2
+        }
+      }]);
+
+      var options = {
+        seriesType: 'scatter',
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
+      };
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(view, options);
+    }
+  </script>
+
+</head>
+
+<body>
+  <div id="chart_div" style="width: 900px; height: 800px"></div>
+</body>
+
 </html>
-
